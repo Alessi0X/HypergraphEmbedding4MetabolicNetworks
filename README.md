@@ -16,4 +16,4 @@ An example of the metabolic pathways dataset used in the paper is available in t
 
 The Pickle file contains a dictionary with `'DATASET'` as the key and a list of dictionaries as the value. Each dictionary in the list represents an organism and contains the following keys:
 - `'ID'`: the ID of the organism
-- `'simplices_nodelabels'`: the hyperedge list of the organism, where each hyperedge is represented as a tuple of node labels.
+- `'simplices_nodelabels'`: the hyperedge list of the organism, where each hyperedge is represented as a _n_-tuple of node labels, with _n_ being the number of nodes in the hyperedge.

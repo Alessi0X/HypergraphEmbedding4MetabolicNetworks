@@ -31,17 +31,17 @@ class MyGraph2Vec(Estimator):
     """
 
     def __init__(
-            self,
-            wl_iterations: int = 2,
-            attributed: bool = False,
-            dimensions: int = 128,
-            workers: int = 4,
-            down_sampling: float = 0.0001,
-            epochs: int = 10,
-            learning_rate: float = 0.025,
-            min_count: int = 5,
-            seed: int = 42,
-            erase_base_features: bool = False,
+        self,
+        wl_iterations: int = 2,
+        attributed: bool = False,
+        dimensions: int = 128,
+        workers: int = 4,
+        down_sampling: float = 0.0001,
+        epochs: int = 10,
+        learning_rate: float = 0.025,
+        min_count: int = 5,
+        seed: int = 42,
+        erase_base_features: bool = False,
     ):
         self.wl_iterations = wl_iterations
         self.attributed = attributed
@@ -98,7 +98,6 @@ class MyGraph2Vec(Estimator):
         )
 
         self._embedding = [self.model.docvecs[str(i)] for i, _ in enumerate(documents)]
-
 
     def get_embedding(self) -> np.array:
         r"""Getting the embedding of graphs.
