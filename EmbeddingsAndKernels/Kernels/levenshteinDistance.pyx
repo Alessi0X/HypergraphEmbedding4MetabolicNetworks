@@ -1,16 +1,3 @@
-"""Levenshtein distance calculation using Cython for performance optimization."""
-""" NOTE: This code requires Cython to compile and run. """
-""" Create a file named setup.py with the following content to compile this code:
-from setuptools import setup
-from distutils.core import setup
-from Cython.Build import cythonize
-
-setup(
-    ext_modules = cythonize("levenshteinDistance.pyx", annotate=True, compiler_directives={'language_level' : "3"})
-)
-Then run the command: python setup.py build_ext --inplace
-"""
-
 def levenshteinDistance(s1, s2):
 
     if s1 == s2:
