@@ -26,7 +26,12 @@ python setup.py build_ext --inplace
 
 ## Requirements
 To run the code, you need to install the following Python packages:
-- list here TBC
+- torch 2.7.1
+- torch_geometric 2.6.1
+- hypergraphx 1.7.7
+- karateclub 1.2.1
+- networkx 3.5
+- scipy 1.15.3
 
 ## Data
 An example of the metabolic pathways dataset used in the paper is available in the file `example data/MetabolicPathways_DEMO_DATASET_Python.pkl`. This file contains the metabolic pathways data in a format suitable for analysis. This example dataset is a smaller version of the dataset used in the paper (5 organisms only), and it is intended for demonstration purposes only. The full list of organisms is available as a supplementary file in the paper.
