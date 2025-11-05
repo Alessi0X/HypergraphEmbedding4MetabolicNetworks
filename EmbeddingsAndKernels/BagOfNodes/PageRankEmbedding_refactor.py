@@ -1,18 +1,33 @@
-import pandas as pd
-import numpy as np
 import os
+import time
+import pandas as pd
 import pickle as pkl
 import hypergraphx as hgx
 import networkx as nx
+import multiprocess as mp
 from hypergraphx.representations.projections import clique_projection
-from joblib import Parallel, delayed
+from scipy.spatial.distance import pdist, squareform
+from tqdm import tqdm
 
+# Create folders to save embeddings and distance matrices
+os.makedirs("../../data/distances", exist_ok=True)
+os.makedirs("../../data/embeddings", exist_ok=True)
+
+# Start timer
+start = time.time()
+
+# set the number of cores for parallel processing
+num_cores = os.cpu_count()
+assert num_cores > 0
+assert 0 < num_cores <= os.cpu_count()
 
 # Load dataset
-with open("data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)["DATASET"]
+numGraphs = len(DATASET)
 
-# Function to compute PageRank for each graph
+
+# Helper function to compute PageRank for each graph
 def compute_node_pagerank(i):
     tempnet = DATASET[i]["simplices_nodelabels"]
     orgname = DATASET[i]["ID"].upper()
@@ -22,34 +37,42 @@ def compute_node_pagerank(i):
     pagerank = nx.pagerank(cliquep, max_iter=5000)
     return orgname, pagerank
 
-num_cores = int(input("Number of cores to use: "))
-assert 0 < num_cores <= os.cpu_count()
 
 bagofwordsnodes = {}
-results = Parallel(n_jobs=num_cores, verbose=50)(delayed(compute_node_pagerank)(i) for i in range(len(DATASET)))
-for orgname, pagerank in results:
-    bagofwordsnodes.setdefault(orgname, {}).update(pagerank)
+
+# Use multiprocess.imap instead of Joblib with tqdm progress bar
+with mp.Pool(processes=num_cores) as pool:
+    results = pool.imap(compute_node_pagerank, range(numGraphs))
+    for orgname, pagerank in tqdm(results, total=numGraphs, desc="Computing PageRank"):
+        bagofwordsnodes.setdefault(orgname, {}).update(pagerank)
+
+del DATASET  # housekeeping
 
 # Convert to DataFrame
-df = pd.DataFrame.from_dict(bagofwordsnodes, orient="index").fillna(0)
+embeddingdf = pd.DataFrame.from_dict(bagofwordsnodes, orient="index").fillna(0)
 
-# Save to CSV
-df.to_csv("data/embeddings/NodePageRank.csv")
-print("CSV SAVED")
+del bagofwordsnodes  # housekeeping
 
-print("...computing distance matrix...")
+# Get time elapsed for building embedding
+print(f"Time elapsed [embedding only]: {time.time() - start}")
 
-from scipy.spatial.distance import pdist, squareform
+# Save created embedding
+print("Saving embedding with shape: ", embeddingdf.shape)
+embeddingdf.to_csv("../../data/embeddings/NodePageRank.csv")
 
-embeddingmatrix = df.values
+# create distance matrices
+# print("Calculating distance matrices")
+#
+# embeddingmatrix = embeddingdf.values
+#
+# distances = pdist(embeddingmatrix, metric="cityblock")
+# distance_matrix = squareform(distances)
+#
+# # save distance matrix
+# with open("../../data/distances/PageRankManhattan.pkl", "wb") as f:
+#     pkl.dump(distance_matrix, f)
+# with open("../../data/distances/ORG_PageRankManhattan.pkl", "wb") as f:
+#     pkl.dump(embeddingdf.index.tolist(), f)
 
-distances = pdist(embeddingmatrix, metric="cityblock")
-
-distance_matrix = squareform(distances)
-
-# Save the distance matrix
-with open("data/distances/PageRankManhattan.pkl", "wb") as f:
-    pkl.dump(distance_matrix, f)
-
-with open("data/distances/ORG_PageRankManhattan.pkl", "wb") as f:
-    pkl.dump(df.index.tolist(), f)
+# that's all folks
+print(f"Time elapsed [embedding + distance matrix]: {time.time() - start}")

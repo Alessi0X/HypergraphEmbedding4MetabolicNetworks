@@ -29,14 +29,32 @@ This will compile the `.pyx` script into a C/C++ file and then compiles the C/C+
 ### On running Graph2Vec
 Conversely to the other embedding methods, Graph2Vec loads the dataset where each hypergraph has to be previously converted into its clique projection. An example to do so is provided in the `BagOfNodes/DegreeCentralityEmbedding_refactor.py` script.
 
+### On parallel processing
+The following scripts:
+
+- `DegreeCentralityEmbedding_refactor.py`
+- `NodeBetweennessEmbedding_refactor.py`
+- `PageRankEmbedding_refactor.py`
+- `EditKernel_refactor.py`
+- `StratifiedEditKernel_refactor.py`
+- `JaccardKernel_refactor.py`
+
+support parallel processing to speed up the computation. For those scripts, parallel processing is enabled by default and uses all available CPU cores (see the `num_cores` variable). If you wish to limit the number of cores used, you can modify the `num_cores` variable in the script before running it, or disable it altogether by setting `num_cores = 1`.
+
+AutoEncoders leverage PyTorch's built-in support for GPU acceleration. If a compatible CUDA GPU is available, the code will automatically use it to speed up the training process. If no GPU is available, the code will run on the CPU. macOS users with Apple Silicon chips can also benefit from GPU acceleration using the Metal Performance Shaders (MPS) backend, which is supported by PyTorch: however, they must manually set the `device` variable to `"mps"` in the code.
+
 ## Requirements
 To run the code, you need to install the following Python packages:
-- `torch == 2.7.1`
-- `torch_geometric == 2.6.1`
-- `hypergraphx == 1.7.7`
-- `karateclub == 1.2.1`
-- `networkx == 3.5`
-- `scipy == 1.15.3`
+- `torch==2.7.1`
+- `torch_geometric==2.6.1`
+- `hypergraphx==1.7.7`
+- `karateclub==1.2.1`
+- `networkx==3.5`
+- `scipy==1.15.3`
+- `pyclustertend==1.9.0`
+- `multiprocess==0.70.18`
+
+The code has been tested with Python 3.12. Preliminary experiments shown compatibility issues with later Python versions (especially with `karateclub` and `pyclustertend`).
 
 ## Data
 An example of the metabolic pathways dataset used in the paper is available in the file `example data/MetabolicPathways_DEMO_DATASET_Python.pkl`. This file contains the metabolic pathways data in a format suitable for analysis. This example dataset is a smaller version of the dataset used in the paper (5 organisms only), and it is intended for demonstration purposes only. The full list of organisms is available as a supplementary file in the paper.

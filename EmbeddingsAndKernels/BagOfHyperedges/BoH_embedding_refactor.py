@@ -1,74 +1,82 @@
-import pandas as pd
+import os
 import time
-from tqdm import tqdm
+import pandas as pd
 import pickle as pkl
+from tqdm import tqdm
+from scipy.spatial.distance import pdist, squareform
 
-start = time.time()
 
-#load dataset
-with open("data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+# Create folders to save embeddings and distance matrices
+os.makedirs("../../data/distances", exist_ok=True)
+os.makedirs("../../data/embeddings", exist_ok=True)
+
+# Load dataset
+with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)["DATASET"]
+
+# Start timer
+start = time.time()
 
 numGraphs = len(DATASET)
 
-# BAG OF WORDS EMBEDDING
+# Get set of organisms
+organisms = [data["ID"] for data in DATASET]
 
-# get set of organisms
-organisms = [data['ID'] for data in DATASET]
-
-# Create embeddings with a progress bar
+# Create embeddings (with a progress bar)
 bagofwords_dict = {}
 
-for idx in tqdm(range(numGraphs), desc="Processing Files"):
+for idx in tqdm(range(numGraphs), desc="Processing organisms"):
     content = DATASET[idx]["simplices_nodelabels"]
     org = DATASET[idx]["ID"].upper()
     content = [",".join(sorted(x)) for x in content]
     for hyperedge in content:
         bagofwords_dict.setdefault(org, {})[hyperedge] = 1
 
+del DATASET  # housekeeping
+
 # Convert dict to DataFrame
 embeddingdf = pd.DataFrame.from_dict(bagofwords_dict, orient="index").fillna(0)
-embeddingcopy = embeddingdf.copy(deep=True)
 
-#check if embedding df has the same elements as organisms
+del bagofwords_dict  # housekeeping
+
+# Check if embedding df has the same elements as organisms (...just to be sure)
 organisms = [x.upper() for x in organisms]
-for org in organisms:
-    if org not in embeddingdf.index:
-        print(org)
+assert set(embeddingdf.index) == set(organisms)
 
-#sort the embedding df acording to organisms
+# Sort the embedding df according to organisms
 embeddingdf = embeddingdf.loc[organisms]
 
-# save created embedding
+# Get time elapsed for building embedding
+print(f"Time elapsed [embedding only]: {time.time() - start}")
+
+# Save created embedding
 print("Saving embedding with shape: ", embeddingdf.shape)
-embeddingdf.to_csv("data/embeddings/BagOfWords.csv")
+embeddingdf.to_csv("../../data/embeddings/BagOfWords.csv")
 
-#create distance matrices
+# Create distance matrices
 print("Calculating distance matrices")
-from scipy.spatial.distance import pdist, squareform
 
-# extract
+# Extract
 embeddingmatrix = embeddingdf.values
 
-# calculate distance matrix
-
+# Calculate distance matrix
 distmatrix = pdist(embeddingmatrix, metric="jaccard")
 distmatrix = squareform(distmatrix)
 
-# save distance matrix
-with open("data/distances/BagOfWordsJaccard.pkl", "wb") as f:
+# Save distance matrix
+with open("../../data/distances/BagOfWordsJaccard.pkl", "wb") as f:
     pkl.dump(distmatrix, f)
-with open("data/distances/ORG_BagOfWordsJaccard.pkl", "wb") as f:
+with open("../../data/distances/ORG_BagOfWordsJaccard.pkl", "wb") as f:
     pkl.dump(embeddingdf.index.tolist(), f)
-print("Jaccard distance matrix saved, time: ", time.time() - start)
 
 distmatrixman = pdist(embeddingmatrix, metric="cityblock")
 distmatrixman = squareform(distmatrixman)
 
-# save distance matrix
-with open("data/distances/BagOfWordsManhattan.pkl", "wb") as f:
+# Save distance matrix
+with open("../../data/distances/BagOfWordsManhattan.pkl", "wb") as f:
     pkl.dump(distmatrixman, f)
-with open("data/distances/ORG_BagOfWordsManhattan.pkl", "wb") as f:
+with open("../../data/distances/ORG_BagOfWordsManhattan.pkl", "wb") as f:
     pkl.dump(embeddingdf.index.tolist(), f)
 
-print(f"time elapsed: {time.time() - start}")
+# that's all folks
+print(f"Time elapsed [embedding + distance matrix]: {time.time() - start}")
