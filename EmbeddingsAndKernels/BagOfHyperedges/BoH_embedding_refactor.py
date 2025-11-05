@@ -51,7 +51,7 @@ print(f"Time elapsed [embedding only]: {time.time() - start}")
 
 # Save created embedding
 print("Saving embedding with shape: ", embeddingdf.shape)
-embeddingdf.to_csv("../../data/embeddings/BagOfWords.csv")
+embeddingdf.to_csv("../../data/embeddings/BagOfHyperedges.csv")
 
 # Create distance matrices
 print("Calculating distance matrices")
@@ -64,18 +64,18 @@ distmatrix = pdist(embeddingmatrix, metric="jaccard")
 distmatrix = squareform(distmatrix)
 
 # Save distance matrix
-with open("../../data/distances/BagOfWordsJaccard.pkl", "wb") as f:
+with open("../../data/distances/BagOfHyperedgesJaccard.pkl", "wb") as f:
     pkl.dump(distmatrix, f)
-with open("../../data/distances/ORG_BagOfWordsJaccard.pkl", "wb") as f:
+with open("../../data/distances/ORG_BagOfHyperedgesJaccard.pkl", "wb") as f:
     pkl.dump(embeddingdf.index.tolist(), f)
 
 distmatrixman = pdist(embeddingmatrix, metric="cityblock")
 distmatrixman = squareform(distmatrixman)
 
 # Save distance matrix
-with open("../../data/distances/BagOfWordsManhattan.pkl", "wb") as f:
+with open("../../data/distances/BagOfHyperedgesManhattan.pkl", "wb") as f:
     pkl.dump(distmatrixman, f)
-with open("../../data/distances/ORG_BagOfWordsManhattan.pkl", "wb") as f:
+with open("../../data/distances/ORG_BagOfHyperedgesManhattan.pkl", "wb") as f:
     pkl.dump(embeddingdf.index.tolist(), f)
 
 # that's all folks

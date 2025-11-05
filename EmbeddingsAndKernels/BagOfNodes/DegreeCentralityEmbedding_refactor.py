@@ -17,7 +17,6 @@ os.makedirs("../../data/embeddings", exist_ok=True)
 # Load dataset
 with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)["DATASET"]
-numGraphs = len(DATASET)
 
 # Start timer
 start = time.time()
@@ -26,6 +25,8 @@ start = time.time()
 num_cores = os.cpu_count()
 assert num_cores > 0
 assert 0 < num_cores <= os.cpu_count()
+
+numGraphs = len(DATASET)
 
 
 # Helper function to compute Degree Centrality for each graph
@@ -39,7 +40,7 @@ def compute_node_degree_centrality(i):
     return orgname, degree_centrality
 
 
-bagofwordsnodes = {}
+bagofwordsedges = {}
 
 # Use multiprocess.imap to parallelize the computation
 with mp.Pool(processes=num_cores) as pool:
@@ -47,14 +48,14 @@ with mp.Pool(processes=num_cores) as pool:
     for orgname, degree_centrality in tqdm(
         results, total=numGraphs, desc="Computing degree centrality"
     ):
-        bagofwordsnodes.setdefault(orgname, {}).update(degree_centrality)
+        bagofwordsedges.setdefault(orgname, {}).update(degree_centrality)
 
 del DATASET  # housekeeping
 
 # Convert to DataFrame
-embeddingdf = pd.DataFrame.from_dict(bagofwordsnodes, orient="index").fillna(0)
+embeddingdf = pd.DataFrame.from_dict(bagofwordsedges, orient="index").fillna(0)
 
-del bagofwordsnodes  # housekeeping
+del bagofwordsedges  # housekeeping
 
 # Get time elapsed for building embedding
 print(f"Time elapsed [embedding only]: {time.time() - start}")
@@ -63,7 +64,7 @@ print(f"Time elapsed [embedding only]: {time.time() - start}")
 print("Saving embedding with shape: ", embeddingdf.shape)
 embeddingdf.to_csv("../../data/embeddings/NodeDegreeCentrality.csv")
 
-# create distance matrices
+# Create distance matrices
 print("Calculating distance matrices")
 
 embeddingmatrix = embeddingdf.values
@@ -71,7 +72,7 @@ embeddingmatrix = embeddingdf.values
 distances = pdist(embeddingmatrix, metric="cityblock")
 distance_matrix = squareform(distances)
 
-# save distance matrix
+# Save distance matrix
 with open("../../data/distances/DegCentManhattan.pkl", "wb") as f:
     pkl.dump(distance_matrix, f)
 with open("../../data/distances/ORG_DegCentManhattan.pkl", "wb") as f:
