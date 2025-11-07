@@ -7,7 +7,7 @@ The paper is currently under review on _Algorithms for Molecular Biology_. A pre
 ## Usage
 The `EmbeddingsAndKernels` folder contains separate scripts for computing the embeddings used in the paper. Each script is designed to be run independently, and they can be executed in any order. Each script will load the metabolic pathways dataset (an example dataset is provided in the `data` folder -- more info below) and compute the embeddings or kernels, saving the results in a pickle file.
 
-### On running the Edit Kernels
+<!-- ### On running the Edit Kernels
 To run the two Edit Kernels it is strongly recommended to compile the core script `levenshteinDistance.pyx` using Cython. This will significantly speed up the computation of the Edit Kernels. To compile the script, create a file named `setup.py` with the following content:
 
 ```python
@@ -24,7 +24,7 @@ Then, run the following command in the terminal:
 ```bash
 python setup.py build_ext --inplace
 ```
-This will compile the `.pyx` script into a C/C++ file and then compiles the C/C++ file into an extension module (a `.so` or `.pyd` file on macOS/Linux and Windows, respectively) that can be imported in Python.
+This will compile the `.pyx` script into a C/C++ file and then compiles the C/C++ file into an extension module (a `.so` or `.pyd` file on macOS/Linux and Windows, respectively) that can be imported in Python. -->
 
 ### On running Graph2Vec
 Conversely to the other embedding methods, Graph2Vec loads the dataset where each hypergraph has to be previously converted into its clique projection. An example to do so is provided in the `BagOfNodes/DegreeCentralityEmbedding_refactor.py` script.
