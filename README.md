@@ -1,11 +1,21 @@
 # HypergraphEmbedding4MetabolicNetworks
 
+[![bioRxiv](https://img.shields.io/badge/bioRxiv-2025.07.10.663860-b31b1b.svg?logo=arxiv&logoColor=white)](https://doi.org/10.1101/2025.07.10.663860)
+[![Python](https://img.shields.io/badge/Python-3.12-3776ab.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Documentation](https://img.shields.io/badge/Documentation-Wiki-4285f4.svg?logo=gitbook&logoColor=white)](../../wiki)
+[![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg?logo=gnu&logoColor=white)](https://www.gnu.org/licenses/gpl-3.0)
+[![DOI](https://img.shields.io/badge/DOI-10.1101%2F2025.07.10.663860-yellow.svg)](https://doi.org/10.1101/2025.07.10.663860)
+
 This repository contains the code and data for the paper "Comparing the ability of embedding methods on metabolic hypergraphs for capturing taxonomy-based features".
 
 The paper is currently under review on _Algorithms for Molecular Biology_. A preprint version is available on [bioRxiv](https://doi.org/10.1101/2025.07.10.663860).
 
 ## Usage
-The `EmbeddingsAndKernels` folder contains separate scripts for computing the embeddings used in the paper. Each script is designed to be run independently, and they can be executed in any order. Each script will load the metabolic pathways dataset (an example dataset is provided in the `data` folder -- more info below) and compute the embeddings or kernels, saving the results in a pickle file.
+The `EmbeddingsAndKernels` folder contains separate scripts for computing the embeddings used in the paper.
+
+Each script is designed to be run independently, and they can be executed in any order. Each script will load the metabolic pathways dataset (an example dataset is provided in the `data` folder -- more info below) and compute the embeddings or kernels, saving the results in a pickle file.
+
+Detailed instructions for each embedding method are provided in the [Wiki](../../wiki).
 
 <!-- ### On running the Edit Kernels
 To run the two Edit Kernels it is strongly recommended to compile the core script `levenshteinDistance.pyx` using Cython. This will significantly speed up the computation of the Edit Kernels. To compile the script, create a file named `setup.py` with the following content:
@@ -26,10 +36,10 @@ python setup.py build_ext --inplace
 ```
 This will compile the `.pyx` script into a C/C++ file and then compiles the C/C++ file into an extension module (a `.so` or `.pyd` file on macOS/Linux and Windows, respectively) that can be imported in Python. -->
 
-### On running Graph2Vec
-Conversely to the other embedding methods, Graph2Vec loads the dataset where each hypergraph has to be previously converted into its clique projection. An example to do so is provided in the `BagOfNodes/DegreeCentralityEmbedding_refactor.py` script.
+<!-- ### On running Graph2Vec
+Conversely to the other embedding methods, Graph2Vec loads the dataset where each hypergraph has to be previously converted into its clique projection. An example to do so is provided in the `BagOfNodes/DegreeCentralityEmbedding_refactor.py` script. -->
 
-### On parallel processing
+<!-- ### On parallel processing
 The following scripts:
 
 - `DegreeCentralityEmbedding_refactor.py`
@@ -41,7 +51,7 @@ The following scripts:
 
 support parallel processing to speed up the computation. For those scripts, parallel processing is enabled by default and uses all available CPU cores (see the `num_cores` variable). If you wish to limit the number of cores used, you can modify the `num_cores` variable in the script before running it, or disable it altogether by setting `num_cores = 1`.
 
-AutoEncoders leverage PyTorch's built-in support for GPU acceleration. If a compatible CUDA GPU is available, the code will automatically use it to speed up the training process. If no GPU is available, the code will run on the CPU. macOS users with Apple Silicon chips can also benefit from GPU acceleration using the Metal Performance Shaders (MPS) backend, which is supported by PyTorch: however, they must manually set the `device` variable to `"mps"` in the code.
+AutoEncoders leverage PyTorch's built-in support for GPU acceleration. If a compatible CUDA GPU is available, the code will automatically use it to speed up the training process. If no GPU is available, the code will run on the CPU. macOS users with Apple Silicon chips can also benefit from GPU acceleration using the Metal Performance Shaders (MPS) backend, which is supported by PyTorch: however, they must manually set the `device` variable to `"mps"` in the code. -->
 
 ## Requirements
 To run the code, you need to install the following Python packages:
