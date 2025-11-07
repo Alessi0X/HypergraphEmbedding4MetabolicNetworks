@@ -67,13 +67,13 @@ print("Calculating distance matrices")
 
 embeddingmatrix = embeddingdf.values
 
-distances = pdist(embeddingmatrix, metric="cityblock")
+distances = pdist(embeddingmatrix, metric="euclidean")
 distance_matrix = squareform(distances)
 
 # Save distance matrix
-with open("../../data/distances/PageRankManhattan.pkl", "wb") as f:
+with open("../../data/distances/PageRankDistance.pkl", "wb") as f:
     pkl.dump(distance_matrix, f)
-with open("../../data/distances/ORG_PageRankManhattan.pkl", "wb") as f:
+with open("../../data/distances/ORG_PageDistance.pkl", "wb") as f:
     pkl.dump(embeddingdf.index.tolist(), f)
 
 # that's all folks
