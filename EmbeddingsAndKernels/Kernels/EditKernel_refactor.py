@@ -14,12 +14,6 @@ os.makedirs("../../data/embeddings", exist_ok=True)
 with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)["DATASET"]
 
-# randomly select 1500 graphs for testing
-import random
-
-random.seed(42)
-DATASET = random.sample(DATASET, 500)
-
 # Start timer
 start = time.time()
 
