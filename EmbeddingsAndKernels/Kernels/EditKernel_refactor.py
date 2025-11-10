@@ -26,7 +26,6 @@ assert 0 < num_cores <= os.cpu_count()
 
 organism_names = [data["ID"] for data in DATASET]
 
-# Existing preprocessing (already in original code)
 for data in DATASET:
     data["simplices_nodelabels"].sort()  # lexicographic sort
     data["simplices_nodelabels"].sort(key=len)  # sort by ascending length
