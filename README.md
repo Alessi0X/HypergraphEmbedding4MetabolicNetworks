@@ -64,7 +64,7 @@ To run the code, you need to install the following Python packages:
 - `pyclustertend==1.9.0`
 - `multiprocess==0.70.18`
 
-The code has been tested with Python 3.12. Preliminary experiments shown compatibility issues with later Python versions (especially with `karateclub` and `pyclustertend`).
+The code has been tested with Python 3.12. Preliminary experiments have shown compatibility issues with later Python versions (especially with `karateclub` and `pyclustertend`).
 
 ## Data
 An example of the metabolic pathways dataset used in the paper is available in the file `data/MetabolicPathways_DEMO_DATASET_Python.pkl`. This file contains the metabolic pathways data in a format suitable for analysis. This example dataset is a smaller version of the dataset used in the paper (5 organisms only), and it is intended for demonstration purposes only. The full list of organisms is available as a supplementary file in the paper.
