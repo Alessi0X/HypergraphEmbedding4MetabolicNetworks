@@ -118,46 +118,18 @@ def objective_function(trial):
     return hop
 
 
-# if the file exists, load it
-# if os.path.exists("../../data/optuna_studies/NewGraph2VecParamOpt/graph2vecC4.pkl"):
-#     with open(
-#         "../../data/optuna_studies/NewGraph2VecParamOpt/graph2vecC4.pkl", "rb"
-#     ) as f:
-#         study = pickle.load(f)
-#     best_homo = study.best_value
-# else:
-#     print("STARTING FROM SCRATCH!!!")
-#     sampler = optuna.samplers.TPESampler(multivariate=True)
-#     study = optuna.create_study(
-#         direction="minimize", study_name="NewGraph2VecParamOpt", sampler=sampler
-#     )
-#
-# print("PREPPED FOR STUDY")
-#
-# for i in range(ITERATION_NUMBER):
-#     study.optimize(objective_function, n_trials=EVALS_PER_ITERATION, n_jobs=1)
-#     best_hyperparameters = study.best_params
-#     best_hop = study.best_value
-#     print("LOOP:", i + 1)
-#     print("Best Hyperparameters:", best_hyperparameters)
-#     print("Best Hopikins:", best_hop)
-#     # save opt for warmstart
-#     with open("../../data/optuna_studies/Graph2VecParamOpt/graph2vecC4.pkl", "wb") as f:
-#         pickle.dump(study, f)
-#         print("SAVED!!")
-
-# Setup
+# Setup optimizer
 sampler = optuna.samplers.TPESampler(multivariate=True)
 study = optuna.create_study(
     direction="minimize", study_name="NewGraph2VecParamOpt", sampler=sampler
 )
 
-# Trigger
+# Trigger the optimizer
 study.optimize(objective_function, n_trials=ITERATION_NUMBER, n_jobs=nWorkers_Optuna)
 # best_hyperparameters = study.best_params
 # best_hop = study.best_value
 
-# Save
+# Save the study
 with open("../../data/optuna_studies/graph2vecC4.pkl", "wb") as f:
     pickle.dump(study, f)
     # print("SAVED!!")
