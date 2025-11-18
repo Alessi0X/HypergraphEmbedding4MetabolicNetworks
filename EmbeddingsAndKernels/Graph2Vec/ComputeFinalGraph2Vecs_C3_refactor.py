@@ -9,7 +9,7 @@ from hypergraphx.representations.projections import clique_projection
 import numpy as np
 from tqdm import tqdm
 
-# Create folders to save embeddings (match original style)
+# Create folders to save embeddings
 os.makedirs("../../data/embeddings/Graph2Vec", exist_ok=True)
 
 # Add parent directories to Python path for custom imports
@@ -20,7 +20,7 @@ from customgraph2vec.mygraph2vec import MyGraph2Vec
 nWorkers_Graph2Vec = os.cpu_count()  # Number of workers for Graph2Vec
 
 # Load hypergraph dataset and build clique projections
-with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+with open("../../data/MetabolicPathways_DEMO_DATASET_Python.pkl", "rb") as f:
     DATASET = pickle.load(f)["DATASET"]
     for i in tqdm(range(len(DATASET)), desc="Evaluating clique projections (C3)"):
         tempnet = DATASET[i]["simplices_nodelabels"]

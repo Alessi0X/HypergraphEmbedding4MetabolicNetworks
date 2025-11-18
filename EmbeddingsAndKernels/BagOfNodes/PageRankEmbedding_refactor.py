@@ -15,7 +15,7 @@ os.makedirs("../../data/distances", exist_ok=True)
 os.makedirs("../../data/embeddings", exist_ok=True)
 
 # Load dataset
-with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+with open("../../data/MetabolicPathways_DEMO_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)["DATASET"]
 
 # Start timer

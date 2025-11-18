@@ -17,7 +17,7 @@ assert num_cores > 0
 assert 0 < num_cores <= os.cpu_count()
 
 # Load dataset
-with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+with open("../../data/MetabolicPathways_DEMO_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)["DATASET"]
 
 # Start timer

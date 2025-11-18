@@ -23,7 +23,7 @@ nWorkers_Optuna = 1  # Number of workers for Optuna (i.e., number of parallel tr
 nWorkers_Graph2Vec = os.cpu_count()  # Number of workers for Graph2Vec
 
 # Load hypergraph dataset and evaluate clique projections
-with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+with open("../../data/MetabolicPathways_DEMO_DATASET_Python.pkl", "rb") as f:
     DATASET = pickle.load(f)["DATASET"]
 
     for i in tqdm(range(len(DATASET)), desc="Evaluating clique projections"):

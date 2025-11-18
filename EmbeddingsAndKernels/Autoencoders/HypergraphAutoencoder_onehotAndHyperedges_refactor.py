@@ -25,7 +25,7 @@ numepochs = 13
 # ========================
 
 # Load dataset
-with open("../../data/MetabolicPathways_DATASET_Python.pkl", "rb") as f:
+with open("../../data/MetabolicPathways_DEMO_DATASET_Python.pkl", "rb") as f:
     DATASET = pkl.load(f)
     DATASET = DATASET["DATASET"]
 
