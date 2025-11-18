@@ -137,7 +137,7 @@ class HypergraphAutoencoder(nn.Module):
         self.embedding = nn.Embedding(num_node_labels, embed_dim)
         self.edge_embedding = nn.Embedding(num_edge_labels, embed_dim)
         self.encoder_conv = HypergraphConv(embed_dim, conv_dim)
-        self.encoder_conv2 = HypergraphConv(conv_dim, conv_dim)
+        # self.encoder_conv2 = HypergraphConv(conv_dim, conv_dim)
         self.relu = nn.ReLU()
 
     def forward(self, incidence, node_labels, hyperedge_labels):
