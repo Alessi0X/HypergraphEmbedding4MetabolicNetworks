@@ -74,7 +74,7 @@ The Pickle file contains a dictionary with `'DATASET'` as the key and a list of 
 - `'simplices_nodelabels'`: the hyperedge list of the organism, where each hyperedge is represented as a _n_-tuple of node labels (strings), with _n_ being the number of nodes in the hyperedge.
 
 ## Citation
-If you use this code or data in your research, please cite the paper as follows:
+If you use this code in your research, please cite the paper as follows:
 ```bibtex
 @article {Cervellini2025.07.10.663860,
 	author = {Cervellini, Mattia and Sinaimeri, Blerina and Matias, Catherine and Martino, Alessio},
@@ -83,7 +83,7 @@ If you use this code or data in your research, please cite the paper as follows:
 	year = {2025},
 	doi = {10.1101/2025.07.10.663860},
 	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2025/07/15/2025.07.10.663860},
+	URL = {https://www.biorxiv.org/content/10.1101/2025.07.10.663860v2},
 	journal = {bioRxiv}
 }
 ```
