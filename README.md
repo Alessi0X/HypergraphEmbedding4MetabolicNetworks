@@ -83,7 +83,7 @@ If you use this code in your research, please cite the paper as follows:
 	year = {2025},
 	doi = {10.1101/2025.07.10.663860},
 	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/10.1101/2025.07.10.663860v2},
+	URL = {https://www.biorxiv.org/content/10.1101/2025.07.10.663860v3},
 	journal = {bioRxiv}
 }
 ```
