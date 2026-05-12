@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "HypergraphEmbedding4MetabolicNetworks"
+abstract: "Comparing the ability of embedding methods on metabolic hypergraphs for capturing taxonomy-based features"
+authors:
+  - family-names: "Cervellini"
+    given-names: "Mattia"
+  - family-names: "Sinaimeri"
+    given-names: "Blerina"
+  - family-names: "Matias"
+    given-names: "Catherine"
+  - family-names: "Martino"
+    given-names: "Alessio"
+version: 1.0.0
+date-released: 2026-04-29
+license: GPL-3.0
+keywords:
+  - clustering
+  - embeddings
+  - hypergraphs
+  - kernel methods
+  - metabolic networks
+  - neural networks
+  - taxonomic groups
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Cervellini"
+      given-names: "Mattia"
+    - family-names: "Sinaimeri"
+      given-names: "Blerina"
+    - family-names: "Matias"
+      given-names: "Catherine"
+    - family-names: "Martino"
+      given-names: "Alessio"
+  title: "Comparing the ability of embedding methods on metabolic hypergraphs for capturing taxonomy-based features"
+  journal: "Algorithms for Molecular Biology"
+  year: 2026
+  month: 4
+  day: 29
+  issn: "1748-7188"
+  doi: "10.1186/s13015-026-00298-w"
+  url: "https://doi.org/10.1186/s13015-026-00298-w"

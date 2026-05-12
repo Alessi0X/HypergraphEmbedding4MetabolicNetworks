@@ -1,14 +1,14 @@
 # HypergraphEmbedding4MetabolicNetworks
 
-[![bioRxiv](https://img.shields.io/badge/bioRxiv-2025.07.10.663860-b31b1b.svg?logo=arxiv&logoColor=white)](https://doi.org/10.1101/2025.07.10.663860)
+[![DOI](https://img.shields.io/badge/DOI-10.1186%2Fs13015--026--00298--w-yellow.svg)](https://doi.org/10.1186/s13015-026-00298-w)
 [![Python](https://img.shields.io/badge/Python-3.12-3776ab.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Documentation](https://img.shields.io/badge/Documentation-Wiki-4285f4.svg?logo=gitbook&logoColor=white)](../../wiki)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg?logo=gnu&logoColor=white)](https://www.gnu.org/licenses/gpl-3.0)
-[![DOI](https://img.shields.io/badge/DOI-10.1101%2F2025.07.10.663860-yellow.svg)](https://doi.org/10.1101/2025.07.10.663860)
+[![bioRxiv](https://img.shields.io/badge/bioRxiv-2025.07.10.663860-b31b1b.svg?logo=arxiv&logoColor=white)](https://doi.org/10.1101/2025.07.10.663860)
 
 This repository contains the code and data for the paper "Comparing the ability of embedding methods on metabolic hypergraphs for capturing taxonomy-based features".
 
-The paper is currently under review on _Algorithms for Molecular Biology_. A preprint version is available on [bioRxiv](https://doi.org/10.1101/2025.07.10.663860).
+The paper is freely available in _Algorithms for Molecular Biology_ ([DOI: 10.1186/s13015-026-00298-w](https://doi.org/10.1186/s13015-026-00298-w)). A preprint version is available on [bioRxiv](https://doi.org/10.1101/2025.07.10.663860).
 
 ## Usage
 The `EmbeddingsAndKernels` folder contains separate scripts for computing the embeddings used in the paper.
@@ -76,15 +76,19 @@ The Pickle file contains a dictionary with `'DATASET'` as the key and a list of 
 ## Citation
 If you use this code in your research, please cite the paper as follows:
 ```bibtex
-@article {Cervellini2025.07.10.663860,
-	author = {Cervellini, Mattia and Sinaimeri, Blerina and Matias, Catherine and Martino, Alessio},
-	title = {Comparing the ability of embedding methods on metabolic hypergraphs for capturing taxonomy-based features},
-	elocation-id = {2025.07.10.663860},
-	year = {2025},
-	doi = {10.1101/2025.07.10.663860},
-	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/10.1101/2025.07.10.663860v3},
-	journal = {bioRxiv}
+@Article{Cervellini2026,
+	author={Cervellini, Mattia
+	and Sinaimeri, Blerina
+	and Matias, Catherine
+	and Martino, Alessio},
+	title={Comparing the ability of embedding methods on metabolic hypergraphs for capturing taxonomy-based features},
+	journal={Algorithms for Molecular Biology},
+	year={2026},
+	month={Apr},
+	day={29},
+	issn={1748-7188},
+	doi={10.1186/s13015-026-00298-w},
+	url={https://doi.org/10.1186/s13015-026-00298-w}
 }
 ```
 
